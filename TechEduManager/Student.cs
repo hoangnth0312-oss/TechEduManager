@@ -53,4 +53,24 @@ public class Student : Person,IFinance
             return TuitionFee * 0.9; // Giảm 10%
         return TuitionFee;
     }
+    // Hàm trả về toàn bộ thông tin của học sinh
+    public string StudentInfo()
+    {
+        return $"Student|{Id}|{Name}|{Age}|{Email}|{CourseName}|{Score}|{TuitionFee}";
+    }
+    
+    //Hàm tạo đối tượng Student
+    public static Student CreateStudent(string[] parts)
+    {
+        return new Student(
+            id: parts[1],
+            name: parts[2],
+            age: int.Parse(parts[3]),
+            email: parts[4],
+            courseName: parts[5],
+            score: double.Parse(parts[6]),
+            tuitionFee: double.Parse(parts[7])
+        );
+    }
+
 }
