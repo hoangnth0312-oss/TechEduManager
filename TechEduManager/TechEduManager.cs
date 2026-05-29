@@ -67,6 +67,17 @@ public class TechEduManager
                 }
             }
         }
+        private bool IsValidName(string name)
+        {
+            foreach (char c in name)
+            {
+                // Nếu gặp ký tự số thì tên sẽ không hợp lệ
+                //
+                if (char.IsDigit(c))
+                    return false;
+            }
+            return true;
+        }
         private void SeedSampleData()
         {
             Console.WriteLine("  Nạp dữ liệu mẫu...");
@@ -139,8 +150,18 @@ public class TechEduManager
             {
                 Console.Write("  Họ tên: ");
                 name = Console.ReadLine()?.Trim() ?? "";
-                if (!string.IsNullOrEmpty(name)) break;
-                Console.WriteLine("  [!] Họ tên không được để trống.");
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    Console.WriteLine("  [!] Họ tên không được để trống.");
+                    continue;
+                }
+                if (!IsValidName(name))
+                {
+                    Console.WriteLine("  [!] Họ tên chỉ được chứa chữ cái, không được nhập số.");
+                    continue;
+                }
+                break;
             }
 
             // Nhập tuổi với try-catch

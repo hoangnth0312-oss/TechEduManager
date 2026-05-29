@@ -45,6 +45,7 @@ public static class TextFileManager
             Console.WriteLine($"\n Không thể ghi file: {ex.Message}");
         }
     }
+    
     public static List<Person> LoadData()
         {
             
@@ -101,4 +102,6 @@ public static class TextFileManager
 
             return persons;
         }
+    
+    
 }
