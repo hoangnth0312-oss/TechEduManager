@@ -423,6 +423,7 @@ public class TechEduManager
                     if (!string.IsNullOrEmpty(searchName)) break;
                     Console.WriteLine("  [!] Tên không được để trống.");
                 }
+                string normalizedSearch = RemoveDiacritics(searchName.ToLower());
                 results = _persons.Where(p => p.Name.ToLower().Contains(searchName)).ToList();
             }
 
@@ -531,5 +532,34 @@ public class TechEduManager
             }
             while (_persons.Any(p => p.Id == id));
             return id;
+        }
+        private string RemoveDiacritics(string text)
+        {
+            // Bảng ký tự tiếng Việt có dấu và tương ứng không dấu
+            string[] vietnameseChars = {
+                "àáạảãâầấậẩẫăằắặẳẵ", "a",
+                "èéẹẻẽêềếệểễ",       "e",
+                "ìíịỉĩ",             "i",
+                "òóọỏõôồốộổỗơờớợởỡ", "o",
+                "ùúụủũưừứựửữ",       "u",
+                "ỳýỵỷỹ",             "y",
+                "đ",                 "d",
+                "ÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴ", "a",
+                "ÈÉẸẺẼÊỀẾỆỂỄ",       "e",
+                "ÌÍỊỈĨ",             "i",
+                "ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ", "o",
+                "ÙÚỤỦŨƯỪỨỰỬỮ",       "u",
+                "ỲÝỴỶỸ",             "y",
+                "Đ",                 "d"
+            };
+
+            for (int i = 0; i < vietnameseChars.Length - 1; i += 2)
+            {
+                foreach (char c in vietnameseChars[i])
+                {
+                    text = text.Replace(c.ToString(), vietnameseChars[i + 1]);
+                }
+            }
+            return text;
         }
 }
