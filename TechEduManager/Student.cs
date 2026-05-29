@@ -60,16 +60,16 @@ public class Student : Person,IFinance
     }
     
     //Hàm tạo đối tượng Student
-    public static Student CreateStudent(string[] parts)
+    public static Student CreateStudent(string[] StuInfo)
     {
         return new Student(
-            id: parts[1],
-            name: parts[2],
-            age: int.Parse(parts[3]),
-            email: parts[4],
-            courseName: parts[5],
-            score: double.Parse(parts[6]),
-            tuitionFee: double.Parse(parts[7])
+            id: StuInfo[1],
+            name: StuInfo[2],
+            age: int.Parse(StuInfo[3]),
+            email: StuInfo[4],
+            courseName: StuInfo[5],
+            score: double.Parse(StuInfo[6]),
+            tuitionFee: double.Parse(StuInfo[7])
         );
     }
 
