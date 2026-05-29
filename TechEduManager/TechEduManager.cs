@@ -84,15 +84,7 @@ public class TechEduManager
 
             _persons.AddRange(new List<Person>
             {
-                new Student("HV001", "Nguyễn Văn An",     21, "an.nv@email.com",      "C# .NET",    8.5, 5_000_000),
-                new Student("HV002", "Trần Thị Bích",     20, "bich.tt@email.com",    "Python AI",  7.2, 4_500_000),
-                new Student("HV003", "Lê Quang Cường",    22, "cuong.lq@email.com",   "Web React",  9.1, 6_000_000),
-                new Student("HV004", "Phạm Thị Dung",     19, "dung.pt@email.com",    "Java Spring",5.8, 4_000_000),
-                new Student("HV005", "Hoàng Minh Đức",    23, "duc.hm@email.com",     "DevOps",     8.0, 7_000_000),
-
-                new Instructor("GV001", "Nguyễn Thị Hoa", 35, "hoa.nt@techedu.vn",   "Lập trình Web",  15_000_000, 80),
-                new Instructor("GV002", "Trần Văn Khải",  42, "khai.tv@techedu.vn",  "Khoa học DL",    18_000_000, 60),
-                new Instructor("GV003", "Lê Thị Mai",     38, "mai.lt@techedu.vn",   "An ninh mạng",   16_000_000, 70),
+                
             });
 
             Console.WriteLine($"  Đã nạp {_persons.Count} bản ghi mẫu.\n");
@@ -423,7 +415,6 @@ public class TechEduManager
                     if (!string.IsNullOrEmpty(searchName)) break;
                     Console.WriteLine("  [!] Tên không được để trống.");
                 }
-                string normalizedSearch = RemoveDiacritics(searchName.ToLower());
                 results = _persons.Where(p => p.Name.ToLower().Contains(searchName)).ToList();
             }
 
@@ -532,34 +523,5 @@ public class TechEduManager
             }
             while (_persons.Any(p => p.Id == id));
             return id;
-        }
-        private string RemoveDiacritics(string text)
-        {
-            // Bảng ký tự tiếng Việt có dấu và tương ứng không dấu
-            string[] vietnameseChars = {
-                "àáạảãâầấậẩẫăằắặẳẵ", "a",
-                "èéẹẻẽêềếệểễ",       "e",
-                "ìíịỉĩ",             "i",
-                "òóọỏõôồốộổỗơờớợởỡ", "o",
-                "ùúụủũưừứựửữ",       "u",
-                "ỳýỵỷỹ",             "y",
-                "đ",                 "d",
-                "ÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴ", "a",
-                "ÈÉẸẺẼÊỀẾỆỂỄ",       "e",
-                "ÌÍỊỈĨ",             "i",
-                "ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ", "o",
-                "ÙÚỤỦŨƯỪỨỰỬỮ",       "u",
-                "ỲÝỴỶỸ",             "y",
-                "Đ",                 "d"
-            };
-
-            for (int i = 0; i < vietnameseChars.Length - 1; i += 2)
-            {
-                foreach (char c in vietnameseChars[i])
-                {
-                    text = text.Replace(c.ToString(), vietnameseChars[i + 1]);
-                }
-            }
-            return text;
         }
 }
